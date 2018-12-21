@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http  import HttpResponse,Http404,HttpResponseRedirect
 from django.shortcuts import render,redirect
 from .models import Profile,Project,AwardLetterReciepients
 from .email import send_welcome_email
@@ -15,7 +15,7 @@ def welcome(request):
         if form.is_valid():
             name = form.cleaned_data['your_name']
             email = form.cleaned_data['email']
-            recipient = AwardLetterRecipients(name = name,email = email)
+            recipient = AwardLetterReciepients(name = name,email = email)
             recipient.save()
             send_welcome_email(name,email)
             HttpResponseRedirect('welcome.html')
