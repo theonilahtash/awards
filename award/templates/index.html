@@ -1,3 +1,54 @@
-{% extends "all-award/base.html" %}
-{% block content %}
+{% extends 'all-award/base.html'%} {% load bootstrap4 %} {% load static %} {% block content %} {{block.super}}
+
+<div class="container-fluid">
+
+    <form action="{%url 'welcome'%}" method="post">
+        {%csrf_token%} {% bootstrap_form letterForm layout='inline' %}
+        <input type="submit" value="Subscribe">
+    </form>
+
+</div>
 {% endblock %}
+<div class="container">
+
+    <!-- Looping through projects   -->
+    {% for project in projects %}
+
+
+    <div class="row">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            <h2 class="text-center"> {{ project.title }} </h2>
+        </div>
+
+        <!--Display  profile project images  -->
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            <img src="{{project.project_image.url}}" class="img-responsive" alt="Image">
+            {% endfor %}
+
+            <div class="card">
+<a href="/profile/{{project.profile.id}}" title="profile">
+    <img src="{{project.profile.profile_photo.url}}" class="card-object" style="height: 100px;
+width: 100px;">
+    <button class="button">
+        <a href="{{ project.project_link }}" target="_blank">view site</a>
+    </button>
+</a>                <h1>Theo tash</h1>
+                <p class="title">Software developer</p>
+                <p>Moringa School</p>
+                <a href="#">
+                    <i class="fa fa-dribbble"></i>
+                </a>
+                <a href="#">
+                    <i class="fa fa-twitter"></i>
+                </a>
+                <a href="#">
+                    <i class="fa fa-linkedin"></i>
+                </a>
+                <a href="#">
+                    <i class="fa fa-facebook"></i>
+                </a>
+                <p>
+                    <button>Contact</button>
+                </p>
+            </div>
+        </div>

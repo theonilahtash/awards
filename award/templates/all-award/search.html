@@ -1,19 +1,19 @@
-{%extends 'all-task/base.html'%} {% block content %}
+{%extends 'all-award/base.html'%} {% block content %}
 <div class="container">
 
     <div class="row">
         {% if projects%}
         <h2>Found {{ projects|length }} of searched term {{message}}</h2>
         {% else %}
-        <h2> {{message}}</h2>
+        <h2> Found 0 projects {{message}}</h2>
         {% endif %}
 
     </div>
 
     <div class="row">
 
-        {% if projects %} {% for project in projects %}
-        <div class="col-md-3">
+        {% if projects %} {% for project in projetcs %}
+        <div class="col-sm-6 col-md-3">
             <h1>{{project.title}}</h1>
         </div>
         {% endfor %} {% endif %}
