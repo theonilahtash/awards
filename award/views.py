@@ -4,10 +4,13 @@ from django.shortcuts import render,redirect
 from .models import Profile,Project,AwardLetterReciepients
 from .email import send_welcome_email
 from .forms import AwardLetterForm
+from django.contrib.auth.decorators import login_required
+
 
 
 
 # Create your views here.
+@login_required(login_url='/accounts/login')
 def welcome(request):
     projects = Project.objects.all()
     if request.method =='POST':
@@ -25,7 +28,7 @@ def welcome(request):
 
     return render(request, 'index.html',{"projects":projects,"letterForm":form})
 
-
+@login_required(login_url='/accounts/login')
 def profile(request,profile_id):
     try:
         profile = Profile.objects.get(id = profile_id)
