@@ -2,7 +2,9 @@
 <div class="container">
     <div class="row">
         <!-- Empty div -->
-        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <img src="https://as2.ftcdn.net/jpg/00/75/54/25/500_F_75542534_CMhT2KmesrpOzt0DI8wIkSp8ECnYNE1P.jpg" alt="" width="350" height="300">
+        </div>
         <div class="col-md-4">
             {% if form.errors %}
             <p> Password or Username is incorrect </p>
@@ -22,6 +24,10 @@
                         </div>
 
                         <input type="hidden" name="next" value="{{next}}">
+                        <input type="hidden" name="next" value="{{next}}">
+                        <p>Don't have an account? Sign up
+                            <a href="/accounts/register/">here</a>
+                        </p>
 
                     </form>
 
