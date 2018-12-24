@@ -29,15 +29,12 @@ def welcome(request):
     return render(request, 'index.html',{"projects":projects,"letterForm":form})
 
 @login_required(login_url='/accounts/login')
-def profile(request,profile_id):
-    try:
-        profile = Profile.objects.get(id = profile_id)
-    except DoesNotExist:
-        raise Http404()
-    return render(request,"all-award/profile.html",{"profile":profile})
+def profile(request,user_username):
+    profile = Profile.get_user_profile(user)
+    print(Profile)
+    projects = Project.get_all()
+    return render(request,'profile.html',{"profile":profile,"project":project})
 
-    
-   
 
 def search_results(request):
 

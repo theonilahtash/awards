@@ -1,6 +1,6 @@
 {% extends 'all-award/base.html'%} {% load bootstrap4 %} {% load static %} {% block content %} {{block.super}}
 
-<div class="container-fluid">
+<div class="container-fluid" style="padding-right: 800px">
 
     <form action="{%url 'welcome'%}" method="post">
         {%csrf_token%} {% bootstrap_form letterForm layout='inline' %}
@@ -11,7 +11,7 @@
 {% endblock %}
 <div class="container">
 
-    <!-- Looping through projects   -->
+    <!-- Looping through profile   -->
     {% for project in projects %}
 
 
@@ -20,7 +20,7 @@
             <h2 class="text-center"> {{ project.title }} </h2>
         </div>
 
-        <!--Display  profile project images  -->
+        <!--Display  profile  images  -->
         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
             <img src="{{project.project_image.url}}" class="img-responsive" alt="Image">
             {% endfor %}
