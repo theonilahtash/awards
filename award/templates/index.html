@@ -8,7 +8,8 @@
     </form>
 
 </div>
-{% endblock %}
+<script type="text/javascript" src="{%static 'js/newsletter.js'%}"></script> {% endblock %}
+<script type="text/javascript" src="{%static 'js/newsletter.js'%}"></script> {% endblock %}
 <div class="container">
 
     <!-- Looping through profile   -->
@@ -52,3 +53,6 @@ width: 100px;">
                 </p>
             </div>
         </div>
+         {% endblock %} 
+         {% block scripts %} {{block.super}}
+            <script type="text/javascript" src="{%static 'js/newsletter.js'%}"></script> {% endblock %}
