@@ -3,7 +3,7 @@ from django.http  import HttpResponse,Http404,HttpResponseRedirect
 from django.shortcuts import render,redirect
 from .models import Profile,Project,AwardLetterReciepients
 from .email import send_welcome_email
-from .forms import AwardLetterForm
+from .forms import AwardLetterForm,NewProfileForm,NewProjectForm
 from django.contrib.auth.decorators import login_required
 
 
@@ -47,7 +47,7 @@ def add_profile(request):
         return redirect('welcome')
     else:
         form = NewProfileForm()
-    return render(request,'new_profile.html', {"profile_form":profile_form})
+    return render(request,'new_profile.html', {"form":form})
 
 
 
