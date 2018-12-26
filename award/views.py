@@ -12,6 +12,10 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 @login_required(login_url='/accounts/login')
 def welcome(request):
+    projects = Project.objects.all()
+    print(projects)
+    profile = Profile.objects.all()
+    print(profile)
     if request.method =='POST':
         form = AwardLetterForm(request.POST)
         if form.is_valid():
@@ -25,12 +29,11 @@ def welcome(request):
     else:
         form = AwardLetterForm()
 
-    return render(request, 'index.html',{"letterForm":form})
+    return render(request, 'index.html',{"projects":projects,"profile":profile, "letterForm":form})
 
 @login_required(login_url='/accounts/login')
 def profile(request,profile_id):
     profile = Profile.objects.get(pk = profile_id)
-    print(Profile)
     projects = Project.get_all()
     return render(request,'profile.html',{"profile":profile,"projects":projects})
 
@@ -69,8 +72,8 @@ def search_results(request):
 @login_required(login_url='/accounts/login/')
 def new_project(request):
     current_user = request.user
-    project = project.objects.all()
-    print(project)
+    # project = project.objects.all()
+    # print(project)
     if request.method == 'POST':
         form = NewProjectForm(request.POST,request.FILES)
         if form.is_valid():
