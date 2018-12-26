@@ -1,6 +1,10 @@
 {% extends 'all-award/base.html' %} {% block content %}
 <div class="container">
-    {% if profile %} {% for prof in profile %}
+    <h1>Profile</h1>
+    <p>Username {{user}}</p>
+    <p>Phone {{user.userprofile.phone }}</p>
+    <img src="{{user.userprofile.image.url}}" alt="" width="250">
+    <!-- {% if profile %} {% for prof in profile %}
     <div class="row">
         <div class="col-md-3 col-sm-3">
             <img src="{{prof.profile_pic.url}}" alt="profile pic" class="responsive" style="height:100px;width:100px; border: 2px hidden; margin-top:10px;border-radius:50%;">
@@ -43,7 +47,7 @@
             </div>
             <div class="col-md-5 col-sm-5 col-lg-5"></div>
         </div>
-        {% endif %}
-    </div>
+        {% endif %} -->
+    <!-- </div> -->
 </div>
 {% endblock %}

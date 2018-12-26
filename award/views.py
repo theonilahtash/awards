@@ -12,7 +12,6 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 @login_required(login_url='/accounts/login')
 def welcome(request):
-    projects = Project.objects.all()
     if request.method =='POST':
         form = AwardLetterForm(request.POST)
         if form.is_valid():
@@ -26,14 +25,31 @@ def welcome(request):
     else:
         form = AwardLetterForm()
 
-    return render(request, 'index.html',{"projects":projects,"letterForm":form})
+    return render(request, 'index.html',{"letterForm":form})
 
 @login_required(login_url='/accounts/login')
-def profile(request,user_username):
-    profile = Profile.get_user_profile(user)
+def profile(request,profile_id):
+    profile = Profile.objects.get(pk = profile_id)
     print(Profile)
     projects = Project.get_all()
-    return render(request,'profile.html',{"profile":profile,"project":project})
+    return render(request,'profile.html',{"profile":profile,"projects":projects})
+
+
+@login_required(login_url='/accounts/login/')
+def add_profile(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = NewProfileForm(request.POST,request.FILES)
+        if form.is_valid():
+            profile = profile_form.save(commit=False)
+            profile.user = current_user
+            profile.save()
+        return redirect('welcome')
+    else:
+        form = NewProfileForm()
+    return render(request,'new_profile.html', {"profile_form":profile_form})
+
+
 
 
 def search_results(request):
@@ -48,3 +64,22 @@ def search_results(request):
     else:
         message = "Searched"
         return render(request, 'all-award/search.html',{"message":message})
+
+
+@login_required(login_url='/accounts/login/')
+def new_project(request):
+    current_user = request.user
+    project = project.objects.all()
+    print(project)
+    if request.method == 'POST':
+        form = NewProjectForm(request.POST,request.FILES)
+        if form.is_valid():
+            project = form.save(commit=False)
+            project.save()
+            return redirect('welcome')
+
+    else:
+        form = NewProjectForm()
+    return render(request, 'new_project.html', {"form": form})
+
+

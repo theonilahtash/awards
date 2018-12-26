@@ -8,24 +8,39 @@
     </form>
 
 </div>
-<script type="text/javascript" src="{%static 'js/newsletter.js'%}"></script> {% endblock %}
-<script type="text/javascript" src="{%static 'js/newsletter.js'%}"></script> {% endblock %}
-<div class="container">
+<div class="container-fluid" style="font-size:300%" ;></div>
+<!-- displaying images -->
+<div class="row">
+    {% for projects in award %}
 
-    <!-- Looping through profile   -->
-    {% for project in projects %}
+    <div class="col-md-3">
+        <!-- modal button-->
+        <button type="button" class="btn btn-lg" data-toggle="modal" data-target="#myModal{{post.id}}">
+            <img src="{{projects.image.url }}" alt="" width="250" height="250">
+        </button>
+        <br>
+        <!-- modal -->
+    </div>
+    {% endfor %}
+</div>
+</div>
+{% for projects in award %}
+<!-- modal content -->
+<div class="modal fade" id="myModal{{post.id}}" role="dialog">
+    <div class="modal-dialog">
 
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>{{ projects.name }}</h2>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <img src="{{projects.image.url }}" alt="" width="500" height="500">
+                <h4 class="modal-title">{{ projects.description }}</h4>
+            </div>
 
-    <div class="row">
-        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-            <h2 class="text-center"> {{ project.title }} </h2>
         </div>
-
-        <!--Display  profile  images  -->
-        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-            <img src="{{project.project_image.url}}" class="img-responsive" alt="Image">
-            {% endfor %}
-
+    </div>
+</div>
+{% endfor %} {% endblock %}
             <div class="card">
 <a href="/profile/{{project.profile.id}}" title="profile">
     <img src="{{project.profile.profile_photo.url}}" class="card-object" style="height: 100px;
@@ -37,7 +52,7 @@ width: 100px;">
                 <p class="title">Software developer</p>
                 <p>Moringa School</p>
                 <a href="#">
-                    <i class="fa fa-dribbble"></i>
+                    <i class="fa fa-dribble"></i>
                 </a>
                 <a href="#">
                     <i class="fa fa-twitter"></i>
@@ -53,6 +68,3 @@ width: 100px;">
                 </p>
             </div>
         </div>
-         {% endblock %} 
-         {% block scripts %} {{block.super}}
-            <script type="text/javascript" src="{%static 'js/newsletter.js'%}"></script> {% endblock %}
