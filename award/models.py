@@ -18,6 +18,12 @@ class Profile(models.Model):
             user_profile = UserProfile.objects.create(user*kwargs['instance'])
     post_save.connect(create_profile,sender=User)
 
+    @classmethod
+    def get_profile(cls):
+        profiles = cls.objects.all()
+        return profiles
+
+
 
 class Project(models.Model):
     posted_by = models.ForeignKey(User, null=True)
