@@ -8,15 +8,43 @@
     </form>
 
 </div>
-<div class="container-fluid" style="font-size:300%" ;></div>
+<div class="container-fluid" style="font-size:100%" ;></div>
+<div class="card">
+    <a href="/profile/{{project.profile.id}}" title="profile">
+        <img src="{{project.profile.profile_image.url}}" class="card-object" style="height: 100px;
+width: 100px;">
+        <button class="button">
+            <a href="{{ project.project_link }}" target="_blank">view site</a>
+        </button>
+    </a>
+    <h1>Theo tash</h1>
+    <p class="title">Software developer</p>
+    <p>Moringa School</p>
+    <!-- <a href="#.fa fa-dribble">
+        <i class="fa fa-dribble"></i>
+    </a>
+    <a href="#">
+        <i class="fa fa-twitter"></i>
+    </a>
+    <a href="#">
+        <i class="fa fa-linkedin"></i>
+    </a>
+    <a href="#">
+        <i class="fa fa-facebook"></i>
+    </a> -->
+    <p>
+        <button>Contact</button>
+    </p>
+</div>
+</div>
 <!-- displaying images -->
 <div class="row">
-    {% for projects in award %}
+    {% for project in projects %}
 
     <div class="col-md-3">
         <!-- modal button-->
         <button type="button" class="btn btn-lg" data-toggle="modal" data-target="#myModal{{post.id}}">
-            <img src="{{projects.image.url }}" alt="" width="250" height="250">
+            <img src="{{projects.image.url }}" alt="" width="200" height="200">
         </button>
         <br>
         <!-- modal -->
@@ -24,7 +52,7 @@
     {% endfor %}
 </div>
 </div>
-{% for projects in award %}
+{% for project in projects %}
 <!-- modal content -->
 <div class="modal fade" id="myModal{{post.id}}" role="dialog">
     <div class="modal-dialog">
@@ -40,31 +68,6 @@
         </div>
     </div>
 </div>
-{% endfor %} {% endblock %}
-            <div class="card">
-<a href="/profile/{{project.profile.id}}" title="profile">
-    <img src="{{project.profile.profile_photo.url}}" class="card-object" style="height: 100px;
-width: 100px;">
-    <button class="button">
-        <a href="{{ project.project_link }}" target="_blank">view site</a>
-    </button>
-</a>                <h1>Theo tash</h1>
-                <p class="title">Software developer</p>
-                <p>Moringa School</p>
-                <a href="#">
-                    <i class="fa fa-dribble"></i>
-                </a>
-                <a href="#">
-                    <i class="fa fa-twitter"></i>
-                </a>
-                <a href="#">
-                    <i class="fa fa-linkedin"></i>
-                </a>
-                <a href="#">
-                    <i class="fa fa-facebook"></i>
-                </a>
-                <p>
-                    <button>Contact</button>
-                </p>
-            </div>
-        </div>
+{% endfor %}
+
+{% endblock %}
