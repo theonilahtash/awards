@@ -5,7 +5,7 @@ from .models import Profile,Project,AwardLetterReciepients
 from .email import send_welcome_email
 from .forms import AwardLetterForm,NewProfileForm,NewProjectForm
 from django.contrib.auth.decorators import login_required
-from rest_framework.response import response
+from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializer import ProfileSerializer, ProjectSerializer
 

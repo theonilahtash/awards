@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'award',
     'bootstrap4',
     'rest_framework',
+    'rest_framework.authtoken',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -87,6 +88,12 @@ DATABASES = {
         'USER': 'moringaschool',
     'PASSWORD':'moringa1234',
     }
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    )
 }
 
 # Password validation
