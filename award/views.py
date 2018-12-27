@@ -94,6 +94,13 @@ class ProfileList(APIView):
         serializers = ProfileSerializer(all_profiles,many=True)
         return response(serializers.data)
 
+    def post(self,request,format=None):
+        serializers = ProfileSerializer(data=request.data)
+        if serializers.is_valid():
+            serializers.save()
+            return Response(serializers.errors,status=status.Http_201_CREATED)
+            return Response(serializers.errors,status=status.Http_400_BAD_REQUEST)
+
 
 
 
