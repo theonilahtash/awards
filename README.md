@@ -19,9 +19,7 @@ Users would like to:
 | Admin Authentication | **On demand** | Access Admin dashboard |
 | Admin Authentication | **On demand, verify emails before proceeding** | Access Admin dashboard |
 | Display all projects with grading | **Welcome page** | Clickable links to open live projects in different sites |
-| To add an project  | **Through Admin dashboard and  welcome page** | Click on add project|
-| To edit project  | **Through Admin dashboard** | Redirected to the  project form details and editing happens|
-| Comment on projects | **Add comments below respective project** | Users can add comments on any project|
+| To add a project  | **Through Admin dashboard and  welcome page** | Click on add project|
 | Vote on projects | **vote** | Users can review projects they like and comment|
 
 ## SetUp / Installation Requirements
