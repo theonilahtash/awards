@@ -5,6 +5,9 @@ from .models import Profile,Project,AwardLetterReciepients
 from .email import send_welcome_email
 from .forms import AwardLetterForm,NewProfileForm,NewProjectForm
 from django.contrib.auth.decorators import login_required
+from rest_framework.response import response
+from rest_framework.views import APIView
+from .serializer import ProfileSerializer, ProjectSerializer
 
 
 
@@ -84,5 +87,13 @@ def new_project(request):
     else:
         form = NewProjectForm()
     return render(request, 'new_project.html', {"form": form})
+
+class ProfileList(APIView):
+    def get(self,request,format=None):
+        all_profiles = Profile.objects.all()
+        serializers = ProfileSerializer(all_profiles,many=True)
+        return response(serializers.data)
+
+
 
 
