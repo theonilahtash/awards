@@ -35,37 +35,68 @@ width: 100px;">
 </div>
 </div>
 <!-- displaying images -->
-<div class="row">
-    {% for project in projects %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-1"></div>
+        <div class="col-11">
+            {% for project in projects %}
 
-    <div class="col-md-3">
-        <!-- modal button-->
-        <button type="button" class="btn btn-lg" data-toggle="modal" data-target="#myModal{{post.id}}">
-            <img src="{{projects.image.url }}" alt="" width="200" height="200">
-        </button>
-        <br>
-        <!-- modal -->
-    </div>
-    {% endfor %}
-</div>
-</div>
-{% for project in projects %}
-<!-- modal content -->
-<div class="modal fade" id="myModal{{post.id}}" role="dialog">
-    <div class="modal-dialog">
+            <div class="card mr-0" style="max-width:70rem; margin-top:5px; border-radius: 30%">
 
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>{{ projects.name }}</h2>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <img src="{{projects.image.url }}" alt="" width="500" height="500">
-                <h4 class="modal-title">{{ projects.description }}</h4>
-                <button class="button">
-                    <a href="{{ projects.project_link }}" target="_blank">view site</a>
-                </button>
-            </div>
+                <img src="{{project.project_image.url}}" class="card-img-top">
+                <div class="card-body">
 
+                    <div class="media">
+                        <div class="media-left media-top">
+                            <a href="/profile/{{project.profile.id}}" title="profile">
+                                <img src="{{project.profile.profile_photo.url}}" class="media-object" style="height: 50px;
+width: 50px;">
+                                <button class="button">
+                                    <a href="{{ project.project_link }}" target="_blank">view site</a>
+                                </button>
+                            </a>
+
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading" style="padding:10px;  max-width:60rem; margin:5px">{{ project.title }}</h4>
+                            <h6 class="media-content" style="padding:10px; height:30px; margin-top:30px; margin:5px">{{ project.description }}</h6>
+                        
+                        
+                            <!-- <button class=" one d-flex justify-content-end" style="float:right; padding:10px; margin:5px">Votes {{ project.reviews.count| floatformat  }}</button> -->
+                            <button class=" two d-flex justify-content-end" style="float:right; padding:10px; margin:5px">design {{ project.design_rating| floatformat }}</button>
+                            <button class=" three d-flex justify-content-end" style="float:right; padding:10px; margin:5px">usability {{ project.usability_rating| floatformat }}</button>
+                            <button class="four d-flex justify-content-end" style="float:right; padding:10px; margin:5px">content {{ project.content_rating| floatformat }}</button>
+                        </div>
+                        </div>
+                        <hr>
+                        <!-- <div class="review-section">
+                            {% for review in reviews %} {% if project.id == review.project.id %}
+                        
+                            <p>
+                                <strong>{{review.juror}}</strong> {{review.comment}} [usability: {{review.usability}}, content: {{review.content}} , design:
+                                {{review.design}}]</p>
+                            <p>{{ project.average_score | floatformat }}</p>
+                            {% endif %} {%endfor%} {{form.media}}
+                            <hr>
+                            <form action="{%url 'review' pk=project.id%}" method="post" enctype="multipart/form-data" id="sema">
+                                {%csrf_token%}
+                                <table>
+                                    {{ form.as_table }}
+                                </table>
+                                <button type="submit">Vote</button>
+                        
+                        
+                            </form>
+                        
+                            {% block scripts %}
+                            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> {% bootstrap_javascript %} {% endblock %}
+                        </div>
+                        
+                        </div>
+                        
+                        </div> -->
         </div>
+
     </div>
 </div>
 {% endfor %}

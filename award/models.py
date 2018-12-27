@@ -46,3 +46,15 @@ class Project(models.Model):
 class AwardLetterReciepients(models.Model):
     name = models.CharField(max_length = 30)
     email = models.EmailField()
+
+class Review(models.Model):
+    review = models.TextField(blank=True)
+    project = models.ForeignKey(Project,on_delete=models.CASCADE, related_name='reviews',null=True)
+    design = models.IntegerField(choices=RATING_CHOICES,default=0)
+    usability = models.IntegerField(choices=RATING_CHOICES,default=0)
+    content = models.IntegerField(choices=RATING_CHOICES,default=0)
+
+    @classmethod
+    def get_reviews(cls):
+        reviews = Reviews.objects.all()
+        return reviews

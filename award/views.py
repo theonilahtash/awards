@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializer import ProfileSerializer, ProjectSerializer
+from .permissions import IsAdminOrReadOnly
 
 
 
@@ -19,6 +20,8 @@ def welcome(request):
     print(projects)
     profile = Profile.objects.all()
     print(profile)
+    reviews =Review.objects.all()
+    print(reviews)
     if request.method =='POST':
         form = AwardLetterForm(request.POST)
         if form.is_valid():
@@ -32,7 +35,7 @@ def welcome(request):
     else:
         form = AwardLetterForm()
 
-    return render(request, 'index.html',{"projects":projects,"profile":profile, "letterForm":form})
+    return render(request, 'index.html',{"projects":projects,"profile":profile,"reviews":reviews, "letterForm":form})
 
 @login_required(login_url='/accounts/login')
 def profile(request,profile_id):
@@ -96,6 +99,7 @@ class ProfileList(APIView):
 
     def post(self,request,format=None):
         serializers = ProfileSerializer(data=request.data)
+        permission_classes = (IsAdminOrReadOnly,)
         if serializers.is_valid():
             serializers.save()
             return Response(serializers.errors,status=status.Http_201_CREATED)
@@ -109,6 +113,7 @@ class ProjectList(APIView):
 
     def post(self,request,format=None):
         serializers = ProjectSerializer(data=request.data)
+        permission_classes = (IsAdminOrReadOnly,)
         if serializers.is_valid():
             serializers.save()
             return Response(serializers.errors,status=status.Http_201_CREATED)
