@@ -1,5 +1,5 @@
 {% extends 'all-award/base.html'%} {% load bootstrap4 %} {% load static %} {% block content %} {{block.super}}
-
+<!-- <div class="container" style="background-color: cadetblue;"> -->
 <div class="container-fluid" style="padding-right: 800px">
 
     <form action="{%url 'welcome'%}" method="post">
@@ -8,40 +8,12 @@
     </form>
 
 </div>
-<div class="container-fluid" style="font-size:100%" ;></div>
-<!-- <div class="card">
-    <a href="/profile/{{project.profile.id}}" title="profile">
-        <img src="{{project.profile.profile_image.url}}" class="card-object" style="height: 100px;
-width: 100px;">
-    </a>
-    <h1>Theo tash</h1>
-    <p class="title">Software developer</p>
-    <p>Moringa School</p> -->
-    <!-- <a href="#.fa fa-dribble">
-        <i class="fa fa-dribble"></i>
-    </a>
-    <a href="#">
-        <i class="fa fa-twitter"></i>
-    </a>
-    <a href="#">
-        <i class="fa fa-linkedin"></i>
-    </a>
-    <a href="#">
-        <i class="fa fa-facebook"></i>
-    </a> -->
-    <!-- <p>
-        <button>Contact</button>
-    </p> -->
-</div>
-</div>
 <!-- displaying images -->
 <div class="container-fluid">
     <div class="row">
-        <div class="col-1"></div>
-        <div class="col-11">
             {% for project in projects %}
 
-            <div class="card mr-0" style="max-width:70rem; margin-top:5px; border-radius: 30%">
+            <div class="card mr-0" style="max-width:40%; height:50%;margin-top:10px;text-align: center;">
 
                 <img src="{{project.project_image.url}}" class="card-img-top">
                 <div class="card-body">
@@ -58,46 +30,40 @@ width: 50px;">
 
                         </div>
                         <div class="media-body">
-                            <h4 class="media-heading" style="padding:10px;  max-width:60rem; margin:5px">{{ project.title }}</h4>
+                            <h4 class="media-heading" style="padding:10px;  max-width:40%; margin:5px">{{ project.title }}</h4>
                             <h6 class="media-content" style="padding:10px; height:30px; margin-top:30px; margin:5px">{{ project.description }}</h6>
                         
                         
-                            <!-- <button class=" one d-flex justify-content-end" style="float:right; padding:10px; margin:5px">Votes {{ project.reviews.count| floatformat  }}</button> -->
-                            <button class=" two d-flex justify-content-end" style="float:right; padding:10px; margin:5px">design {{ project.design_rating| floatformat }}</button>
-                            <button class=" three d-flex justify-content-end" style="float:right; padding:10px; margin:5px">usability {{ project.usability_rating| floatformat }}</button>
-                            <button class="four d-flex justify-content-end" style="float:right; padding:10px; margin:5px">content {{ project.content_rating| floatformat }}</button>
+                            <button style="float:right; padding:10px; margin:5px">design {{ project.design_rating| floatformat }}</button>
+                            <button style="float:right; padding:10px; margin:5px">usability {{ project.usability_rating| floatformat }}</button>
+                            <button style="float:right; padding:10px; margin:5px">content {{ project.content_rating| floatformat }}</button>
                         </div>
                         </div>
                         <hr>
-                        <!-- <div class="review-section">
-                            {% for review in reviews %} {% if project.id == review.project.id %}
-                        
-                            <p>
-                                <strong>{{review.juror}}</strong> {{review.comment}} [usability: {{review.usability}}, content: {{review.content}} , design:
-                                {{review.design}}]</p>
-                            <p>{{ project.average_score | floatformat }}</p>
-                            {% endif %} {%endfor%} {{form.media}}
-                            <hr>
-                            <form action="{%url 'review' pk=project.id%}" method="post" enctype="multipart/form-data" id="sema">
-                                {%csrf_token%}
-                                <table>
-                                    {{ form.as_table }}
-                                </table>
-                                <button type="submit">Vote</button>
-                        
-                        
-                            </form>
-                        
-                            {% block scripts %}
-                            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> {% bootstrap_javascript %} {% endblock %}
-                        </div>
-                        
-                        </div>
-                        
-                        </div> -->
+                                    <div class="review-section">
+                                        {% for review in reviews %} {% if project.id == review.project.id %}
+                                    
+                                        <p>
+                                         {{review.comment}} [usability: {{review.usability}}, content: {{review.content}} , design:
+                                            {{review.design}}]</p>
+                                        <p>{{ project.average_score | floatformat }}</p>
+                                        {% endif %} {%endfor%} {{form.media}}
+                                        <hr>
+                                        <form action="{%url 'review' pk=project.id%}" method="post" enctype="multipart/form-data" id="hello">
+                                            {%csrf_token%}
+                                            <table>
+                                                {{ form.as_table }}
+                                            </table>
+                                            <button type="submit">Vote</button>
+                                    
+                                    
+                                        </form>     
+                                    </div> 
         </div>
 
     </div>
+</div>
+</div>
 </div>
 {% endfor %}
 

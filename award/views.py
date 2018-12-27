@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http  import HttpResponse,Http404,HttpResponseRedirect
 from django.shortcuts import render,redirect
-from .models import Profile,Project,AwardLetterReciepients
+from .models import Profile,Project,AwardLetterReciepients,Review
 from .email import send_welcome_email
 from .forms import AwardLetterForm,NewProfileForm,NewProjectForm
 from django.contrib.auth.decorators import login_required
@@ -20,8 +20,6 @@ def welcome(request):
     print(projects)
     profile = Profile.objects.all()
     print(profile)
-    reviews =Review.objects.all()
-    print(reviews)
     if request.method =='POST':
         form = AwardLetterForm(request.POST)
         if form.is_valid():
@@ -30,12 +28,34 @@ def welcome(request):
             recipient = AwardLetterReciepients(name = name,email = email)
             recipient.save()
             send_welcome_email(name,email)
-            HttpResponseRedirect('welcome.html')
+            HttpResponseRedirect('index.html')
             print('valid')
     else:
         form = AwardLetterForm()
 
-    return render(request, 'index.html',{"projects":projects,"profile":profile,"reviews":reviews, "letterForm":form})
+    return render(request, 'index.html',{"projects":projects,"profile":profile, "letterForm":form})
+
+@login_required(login_url='/accounts/login/')
+def review(request,id):
+    current_user = request.user
+    item = Project.single_project(id=id)
+    project = get_object_or_404(Project, pk= id)
+    if  request.method == 'POST':
+        form = ReviewForm(request.POST, request.FILES)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.design = design
+            review.usability = usability
+            review.content = content
+            review.save()
+        return redirect('welcome')
+
+    else:
+        form = ReviewForm()
+
+    return render(request,"home.html",{"projects":projects, "reviews":reviews,"form": form,"profile":profile})
+
+        
 
 @login_required(login_url='/accounts/login')
 def profile(request,profile_id):
