@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http  import HttpResponse,Http404,HttpResponseRedirect
 from django.shortcuts import render,redirect
-from .models import Profile,Project,AwardLetterReciepients,Review
+from .models import Profile,Project,AwardLetterReciepients,Review,UsabilityRating,DesignRating,ContentRating
 from .email import send_welcome_email
 from .forms import AwardLetterForm,NewProfileForm,NewProjectForm
 from django.contrib.auth.decorators import login_required
@@ -20,6 +20,7 @@ def welcome(request):
     print(projects)
     profile = Profile.objects.all()
     print(profile)
+    reviews = Review.objects.all()
     if request.method =='POST':
         form = AwardLetterForm(request.POST)
         if form.is_valid():
@@ -33,7 +34,7 @@ def welcome(request):
     else:
         form = AwardLetterForm()
 
-    return render(request, 'index.html',{"projects":projects,"profile":profile, "letterForm":form})
+    return render(request, 'index.html',{"projects":projects,"profile":profile,"reviews":reviews, "letterForm":form})
 
 @login_required(login_url='/accounts/login/')
 def review(request,id):
@@ -43,10 +44,14 @@ def review(request,id):
     if  request.method == 'POST':
         form = ReviewForm(request.POST, request.FILES)
         if form.is_valid():
+            design = form.cleaned_data['design']
+            usability = form.cleaned_data['usability']
+            content = form.cleaned_data['content']
             review = form.save(commit=False)
             review.design = design
             review.usability = usability
             review.content = content
+            print(review)
             review.save()
         return redirect('welcome')
 
@@ -54,9 +59,6 @@ def review(request,id):
         form = ReviewForm()
 
     return render(request,"home.html",{"projects":projects, "reviews":reviews,"form": form,"profile":profile})
-
-        
-
 @login_required(login_url='/accounts/login')
 def profile(request,profile_id):
     profile = Profile.objects.get(pk = profile_id)

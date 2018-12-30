@@ -70,3 +70,4 @@ class Review(models.Model):
     def get_reviews(cls):
         reviews = Reviews.objects.all()
         return reviews
+
