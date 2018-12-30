@@ -1,43 +1,47 @@
 {% extends 'all-award/base.html'%} {% load bootstrap4 %} {% load static %} {% block content %} {{block.super}}
-<!-- <div class="container" style="background-color: cadetblue;"> -->
-<div class="container-fluid" style="padding-right: 800px">
 
+<!-- <div class="div" style="padding:40px; background-image: url('https://data.whicdn.com/images/279900833/original.gif');background-size: inherit "> -->
+</div>
+<div class="container-fluid" style="padding-right: 800px;background-color: cadetblue;margin-left: 250px;padding-left: 200px">
     <form action="{%url 'welcome'%}" method="post">
         {%csrf_token%} {% bootstrap_form letterForm layout='inline' %}
         <input type="submit" value="Subscribe">
     </form>
-
 </div>
+
 <!-- displaying images -->
-<div class="container-fluid">
+<div class="jumbotron" style="margin-right: 250px;margin-left: 250px">
+<!-- <div class="div" style="padding:20px; background-image: url('https://data.whicdn.com/images/279900833/original.gif');background-size: inherit "> -->
+<div class="container-fluid"  style="background-color: cadetblue; text-align: left">
     <div class="row">
             {% for project in projects %}
-
-            <div class="card mr-0" style="max-width:40%; height:50%;margin-top:10px;text-align: center;">
-
+        <div class="jumbotron" style="margin-right: 250px;margin-left: 250px">
+            <!-- <div class="div" style="padding:40px; background-image: url('https://data.whicdn.com/images/279900833/original.gif');background-size: inherit "> -->
+            <!-- <div class="col-md-4" style="float:left; width:50%; margin-left:70px;margin-right:200px;margin-bottom:15px;"> -->
                 <img src="{{project.project_image.url}}" class="card-img-top">
-                <div class="card-body">
-
+                <div class="card-body" style="background-color: cadetblue">
+                    </div>
+                    </div>
+                    </div>
                     <div class="media">
-                        <div class="media-left media-top">
+                        <div class="media-center media-top">
                             <a href="/profile/{{project.profile.id}}" title="profile">
-                                <img src="{{project.profile.profile_photo.url}}" class="media-object" style="height: 50px;
-width: 50px;">
+                                <img src="{{project.profile.profile_photo.url}}" class="media-object" style="height: 50px;width: 50px;">
                                 <button class="button">
                                     <a href="{{ project.project_link }}" target="_blank">view site</a>
                                 </button>
                             </a>
 
                         </div>
-                        <div class="media-body">
+                        </div>
+                        <div class="media-body" style="text-align: left">
                             <h4 class="media-heading" style="padding:10px;  max-width:40%; margin:5px">{{ project.title }}</h4>
                             <h6 class="media-content" style="padding:10px; height:30px; margin-top:30px; margin:5px">{{ project.description }}</h6>
                         
                         
-                            <button style="float:right; padding:10px; margin:5px">design {{ project.design_rating| floatformat }}</button>
-                            <button style="float:right; padding:10px; margin:5px">usability {{ project.usability_rating| floatformat }}</button>
-                            <button style="float:right; padding:10px; margin:5px">content {{ project.content_rating| floatformat }}</button>
-                        </div>
+                            <button style="float:left;"> rate by design {{ project.design_rating| floatformat }}</button>
+                            <button style="float:left;">rate by usability {{ project.usability_rating| floatformat }}</button>
+                            <button style="float:left;">rate by content {{ project.content_rating| floatformat }}</button>
                         </div>
                         <hr>
                                     <div class="review-section">
@@ -48,21 +52,10 @@ width: 50px;">
                                             {{review.design}}]</p>
                                         <p>{{ project.average_score | floatformat }}</p>
                                         {% endif %} {%endfor%} {{form.media}}
-                                        <hr>
-                                        <form action="{%url 'review' pk=project.id%}" method="post" enctype="multipart/form-data" id="hello">
-                                            {%csrf_token%}
-                                            <table>
-                                                {{ form.as_table }}
-                                            </table>
-                                            <button type="submit">Vote</button>
-                                    
-                                    
-                                        </form>     
                                     </div> 
         </div>
 
     </div>
-</div>
 </div>
 </div>
 {% endfor %}
