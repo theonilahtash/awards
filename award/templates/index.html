@@ -1,8 +1,5 @@
 {% extends 'all-award/base.html'%} {% load bootstrap4 %} {% load static %} {% block content %} {{block.super}}
-
-<!-- <div class="div" style="padding:40px; background-image: url('https://data.whicdn.com/images/279900833/original.gif');background-size: inherit "> -->
-</div>
-<div class="container-fluid" style="padding-right: 800px;background-color: cadetblue;margin-left: 250px;padding-left: 200px">
+<div class="container-fluid" style="padding-right: 1000px;">
     <form action="{%url 'welcome'%}" method="post">
         {%csrf_token%} {% bootstrap_form letterForm layout='inline' %}
         <input type="submit" value="Subscribe">
@@ -10,13 +7,13 @@
 </div>
 
 <!-- displaying images -->
-<div class="jumbotron" style="margin-right: 250px;margin-left: 250px">
-<!-- <div class="div" style="padding:20px; background-image: url('https://data.whicdn.com/images/279900833/original.gif');background-size: inherit "> -->
+<div class="jumbotron" style="margin-right: 250px;margin-left:250px">
+<div class="div" style="padding:20px; background-image: url('https://data.whicdn.com/images/279900833/original.gif');background-size: inherit ">
 <div class="container-fluid"  style="background-color: cadetblue; text-align: left">
     <div class="row">
             {% for project in projects %}
-        <div class="jumbotron" style="margin-right: 250px;margin-left: 250px">
-            <!-- <div class="div" style="padding:40px; background-image: url('https://data.whicdn.com/images/279900833/original.gif');background-size: inherit "> -->
+        <div class="jumbotron" style="margin-right: 300px;margin-left: 300px">
+            <div class="div" style="padding:40px; background-image: url('https://data.whicdn.com/images/279900833/original.gif');background-size: inherit ">
             <!-- <div class="col-md-4" style="float:left; width:50%; margin-left:70px;margin-right:200px;margin-bottom:15px;"> -->
                 <img src="{{project.project_image.url}}" class="card-img-top">
                 <div class="card-body" style="background-color: cadetblue">

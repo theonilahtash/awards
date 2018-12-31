@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http  import HttpResponse,Http404,HttpResponseRedirect
 from django.shortcuts import render,redirect
-from .models import Profile,Project,AwardLetterReciepients,Review,UsabilityRating,DesignRating,ContentRating
+from .models import Profile,Project,AwardLetterReciepients,Review
 from .email import send_welcome_email
 from .forms import AwardLetterForm,NewProfileForm,NewProjectForm
 from django.contrib.auth.decorators import login_required
@@ -20,7 +20,7 @@ def welcome(request):
     print(projects)
     profile = Profile.objects.all()
     print(profile)
-    reviews = Review.objects.all()
+    # reviews = Review.objects.all()
     if request.method =='POST':
         form = AwardLetterForm(request.POST)
         if form.is_valid():
@@ -34,31 +34,30 @@ def welcome(request):
     else:
         form = AwardLetterForm()
 
-    return render(request, 'index.html',{"projects":projects,"profile":profile,"reviews":reviews, "letterForm":form})
+    return render(request, 'index.html',{"projects":projects,"profile":profile, "letterForm":form})
 
 @login_required(login_url='/accounts/login/')
-def review(request,id):
+def add_review(request,pk):
+    project = get_object_or_404(Project, pk=pk)
     current_user = request.user
-    item = Project.single_project(id=id)
-    project = get_object_or_404(Project, pk= id)
-    if  request.method == 'POST':
-        form = ReviewForm(request.POST, request.FILES)
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
         if form.is_valid():
             design = form.cleaned_data['design']
             usability = form.cleaned_data['usability']
             content = form.cleaned_data['content']
             review = form.save(commit=False)
+            review.project = project
+            review.juror = current_user
             review.design = design
             review.usability = usability
             review.content = content
-            print(review)
             review.save()
-        return redirect('welcome')
-
+            return redirect('welcome')
     else:
         form = ReviewForm()
+        return render(request,'review.html',{"review":review,"form":form})
 
-    return render(request,"home.html",{"projects":projects, "reviews":reviews,"form": form,"profile":profile})
 @login_required(login_url='/accounts/login')
 def profile(request,profile_id):
     profile = Profile.objects.get(pk = profile_id)
