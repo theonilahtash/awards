@@ -56,7 +56,7 @@ def add_review(request,pk):
             return redirect('welcome')
     else:
         form = ReviewForm()
-        return render(request,'review.html',{"review":review,"form":form})
+        return render(request,'review.html',{"review-form":review-form})
 
 @login_required(login_url='/accounts/login')
 def profile(request,profile_id):
