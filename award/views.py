@@ -1,9 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect,get_object_or_404
 from django.http  import HttpResponse,Http404,HttpResponseRedirect
 from django.shortcuts import render,redirect
 from .models import Profile,Project,AwardLetterReciepients,Review
 from .email import send_welcome_email
-from .forms import AwardLetterForm,NewProfileForm,NewProjectForm
+from .forms import AwardLetterForm,NewProfileForm,NewProjectForm,ReviewForm
 from django.contrib.auth.decorators import login_required
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -20,7 +20,8 @@ def welcome(request):
     print(projects)
     profile = Profile.objects.all()
     print(profile)
-    # reviews = Review.objects.all()
+    reviews = Review.objects.all()
+    print(reviews)
     if request.method =='POST':
         form = AwardLetterForm(request.POST)
         if form.is_valid():
@@ -34,7 +35,7 @@ def welcome(request):
     else:
         form = AwardLetterForm()
 
-    return render(request, 'index.html',{"projects":projects,"profile":profile, "letterForm":form})
+    return render(request, 'index.html',{"projects":projects,"profile":profile,"reviews":reviews, "letterForm":form})
 
 @login_required(login_url='/accounts/login/')
 def add_review(request,pk):
@@ -48,20 +49,21 @@ def add_review(request,pk):
             content = form.cleaned_data['content']
             review = form.save(commit=False)
             review.project = project
-            review.juror = current_user
+            review.user = current_user
             review.design = design
             review.usability = usability
             review.content = content
             review.save()
-            return redirect('welcome')
+            return HttpResponseredirect('welcome')
+
     else:
         form = ReviewForm()
-        return render(request,'review.html',{"review-form":review-form})
+        return render(request,'review.html',{"form":form})
 
 @login_required(login_url='/accounts/login')
 def profile(request,profile_id):
     profile = Profile.objects.get(pk = profile_id)
-    projects = Project.get_all()
+    projects = Project.objects.all()
     return render(request,'profile.html',{"profile":profile,"projects":projects})
 
 
@@ -89,11 +91,11 @@ def search_results(request):
         searched_projects = Project.search_by_title(search_term)
         message = f"{search_term}"
 
-        return render(request, 'all-award/search.html',{"message":message,"projects": searched_projects})
+        return redirect(request, 'search.html',{"message":message,"projects": searched_projects})
 
     else:
         message = "Searched"
-        return render(request, 'all-award/search.html',{"message":message})
+        return render(request, 'search.html',{"message":message})
 
 
 @login_required(login_url='/accounts/login/')

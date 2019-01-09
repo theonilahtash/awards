@@ -1,3 +1,9 @@
 /* h1{
     color: yellowgreen;
 } */
+body{
+    /* background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmq8sNbgp3b8BwLIwqzkdDHV4Xw8r4yngnp_ndDcgWH8jdaeiwyQ); */
+    background-size:cover;
+    background-repeat: no-repeat;
+    background: linear-gradient(to right, #4ecdc4, #556270);
+}
